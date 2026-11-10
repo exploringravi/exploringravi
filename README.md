@@ -56,6 +56,12 @@ The studio I founded for city data tools and GIS training: open boundary dataset
 <br>
 
 <!-- LATEST:START -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/latest-dark.svg">
+  <img alt="Latest repositories" src="./assets/latest-light.svg" width="100%">
+</picture>
+
+<p align="center"><sub><a href="https://github.com/exploringravi/Cyprus-Weather-Data">Cyprus Weather Data</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/Statistical-downscaling-of-UTCI">Statistical downscaling of UTCI</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/India_admin_boundaries">India admin boundaries</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/threshold-proximity-utci">threshold proximity utci</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/letshike">letshike</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/APP_Hike">APP Hike</a></sub></p>
 <!-- LATEST:END -->
 
 <br>
