@@ -131,7 +131,7 @@ def X(year):
 
 
 STUDY = [  # start, end, title, place, colour index, row
-    (2015.6, 2019.5, "B.Plan, First Class", "SPA Bhopal", 1, 0),
+    (2015.6, 2019.5, "Bachelor's degree", "School of Planning and Architecture, Bhopal", 1, 0),
     (2019.6, 2020.6, "PG Diploma, Geoinformatics", "ITC Twente and IIRS-ISRO", 2, 1),
     (2021.7, 2023.7, "MSc Copernicus Master in Digital Earth", "Salzburg and Olomouc", 3, 0),
     (2023.75, NOW, "PhD, urban microclimate", "The Cyprus Institute", 2, 1),
@@ -186,7 +186,7 @@ def path(t):
     b += f'<g class="pulse"><line x1="{nx}" y1="{top - 40}" x2="{nx}" y2="{axis}" stroke="{UTCI[8]}" stroke-width="1.5" stroke-dasharray="3 4"/>' \
          f'<circle cx="{nx}" cy="{axis}" r="5" fill="{UTCI[8]}"/></g>'
     b += mono(nx, top - 46, "NOW", UTCI[8], size=10, ls=2.5, anchor="middle")
-    return svg(axis + 48, b, t, "Path. Study: B.Plan SPA Bhopal 2015 to 2019; PG Diploma ITC Twente and IIRS-ISRO 2019 to 2020; "
+    return svg(axis + 48, b, t, "Path. Study: Bachelor's degree, School of Planning and Architecture, Bhopal, 2015 to 2019; PG Diploma ITC Twente and IIRS-ISRO 2019 to 2020; "
                "Copernicus Master in Digital Earth 2021 to 2023; PhD The Cyprus Institute 2023 to now. Work: internships 2016 to 2018; "
                "Neo Architects 2019; IIRS-ISRO 2020 to 2021; Srei Infrastructure Finance 2021; founder of CityAI 2021 to now; "
                "Spatial Services Salzburg 2022; secondments Perugia and Pisa 2025.")
@@ -275,6 +275,15 @@ def write_latest(repos):
     open("README.md", "w").write(md)
 
 
+def stamp_readme():
+    # a fresh ?v= on every image link stops browsers and GitHub showing stale panels
+    v = datetime.utcnow().strftime("%Y%m%d%H%M")
+    md = open("README.md").read()
+    md = re.sub(r"(assets/[\w-]+\.svg)(\?v=\d+)?", rf"\1?v={v}", md)
+    md = md.replace("B.Plan, SPA Bhopal", "Bachelor's degree, School of Planning and Architecture, Bhopal")
+    open("README.md", "w").write(md)
+
+
 if __name__ == "__main__":
     os.makedirs("assets", exist_ok=True)
     if "--latest" in sys.argv:
@@ -284,3 +293,4 @@ if __name__ == "__main__":
         for theme, t in THEMES.items():
             for fn, part in [("header", header), ("numbers", numbers), ("expertise", expertise), ("path", path)]:
                 open(f"assets/{fn}-{theme}.svg", "w").write(part(t))
+    stamp_readme()
