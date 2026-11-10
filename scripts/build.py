@@ -21,10 +21,11 @@ CSS = """
 .d{stroke-dasharray:1200;animation:draw 1.6s ease-out both}
 @keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
-@keyframes wave{0%,70%,100%{opacity:1}35%{opacity:.5}}
+@keyframes wave{0%,70%,100%{opacity:1}35%{opacity:.25}}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes draw{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important}}
 """
 
 
@@ -119,47 +120,76 @@ def expertise(t):
     return svg(400, b, t, "Expertise")
 
 
-# ---------- path ----------
+# ---------- path: study and work on one time axis ----------
+_today = datetime.utcnow()
+NOW = _today.year + (_today.timetuple().tm_yday - 1) / 365.25
+END = max(2027, int(NOW) + 1)
+
+
 def X(year):
-    return 64 + (year - 2015) * 95
+    return 64 + (year - 2015) * 1152 / (END - 2015)
 
 
-PATH = [  # start, end, years label, title, place, side, class colour
-    (2015, 2019, "2015 TO 2019", "B.Plan, urban planning", "School of Planning and Architecture, Bhopal", "up", 1),
-    (2019, 2020, "2019 TO 2020", "PG Diploma, Geoinformatics", "ITC Twente with IIRS-ISRO", "down", 3),
-    (2021, 2023, "2021 TO 2023", "Copernicus Master in Digital Earth", "Salzburg and Olomouc", "up", 5),
-    (2023, 2026.9, "2023 TO NOW", "MSCA Doctoral Candidate", "The Cyprus Institute, Nicosia", "down", 7),
-    (2025, 2025.6, "2025", "Visiting Scientist", "University of Perugia", "up", 9),
+STUDY = [  # start, end, title, place, colour index, row
+    (2015.6, 2019.5, "B.Plan, First Class", "SPA Bhopal", 1, 0),
+    (2019.6, 2020.6, "PG Diploma, Geoinformatics", "ITC Twente and IIRS-ISRO", 2, 1),
+    (2021.7, 2023.7, "MSc Copernicus Master in Digital Earth", "Salzburg and Olomouc", 3, 0),
+    (2023.75, NOW, "PhD, urban microclimate", "The Cyprus Institute", 2, 1),
+]
+WORK = [
+    (2016.4, 2017.6, "Internships", "Gaursons, Gorakhpur Development Authority", 5),
+    (2018.4, 2018.8, "Research Intern", "Gorakhpur Environmental Action Group", 5),
+    (2019.4, 2019.9, "Team Lead, Urban Development", "Neo Architects and Planners", 6),
+    (2020.6, 2021.2, "GIS Application Specialist", "IIRS-ISRO, Dehradun", 7),
+    (2021.2, 2021.7, "Consultant and Project Manager", "Srei Infrastructure Finance", 7),
+    (2021.2, NOW, "Founder", "CityAI", 8),
+    (2022.3, 2022.7, "Geospatial Intern", "Spatial Services, Salzburg", 6),
+    (2025.1, 2025.9, "Secondments", "University of Perugia and ATI Architecture, Pisa", 9),
 ]
 
 
+def bar_label(x1, x2, y, title, place, t, delay):
+    width = len(title) * 8.4 + len(place) * 6.8 + 10
+    lx = min(x1, 1216 - width)
+    return (f'<text class="f" {d(delay + 0.2)} x="{lx:.0f}" y="{y - 10}">'
+            f'<tspan font-family="{SERIF}" font-size="16" fill="{t["ink"]}">{title}</tspan>'
+            f'<tspan font-family="{SANS}" font-size="12.5" fill="{t["mute"]}" dx="8">{place}</tspan></text>')
+
+
+def bar(x1, x2, y, colour, delay, h=6):
+    return f'<rect class="g" {d(delay)} x="{x1:.1f}" y="{y - h / 2:.1f}" width="{x2 - x1:.1f}" height="{h}" rx="{h / 2}" fill="{colour}"/>'
+
+
 def path(t):
+    top, pitch = 150, 46
+    wy0 = top + 2 * pitch + 64
+    axis = wy0 + len(WORK) * pitch - 6
     b = section("PATH", t)
-    ay = 236
-    b += f'<line class="d" x1="64" y1="{ay}" x2="1216" y2="{ay}" stroke="{t["rule"]}" stroke-width="1"/>'
-    for n, (s, e, yrs, title, place, side, k) in enumerate(PATH):
-        t0 = 0.5 + n * 0.35
-        b += f'<g class="f" {d(t0)}>'
-        x1, x2 = X(s), X(e)
-        point = e - s < 1
-        if point:
-            xm = (x1 + x2) / 2
-            b += f'<circle cx="{xm}" cy="{ay}" r="6" fill="{UTCI[k]}" stroke="{t["bg"]}" stroke-width="3"/>'
-            lx, anchor = 1216, "end"
-            b += f'<line x1="{xm}" y1="{ay - 8}" x2="{xm}" y2="186" stroke="{t["rule"]}"/>'
-        else:
-            b += f'<rect class="g" {d(t0)} x="{x1}" y="{ay - 3}" width="{x2 - x1}" height="6" fill="{UTCI[k]}"/>'
-            lx, anchor = x1, "start"
-            if side == "up":
-                b += f'<line x1="{x1}" y1="{ay - 3}" x2="{x1}" y2="186" stroke="{t["rule"]}"/>'
-            else:
-                b += f'<line x1="{x1}" y1="{ay + 3}" x2="{x1}" y2="282" stroke="{t["rule"]}"/>'
-        ys = (120, 148, 172) if side == "up" else (308, 336, 360)
-        b += mono(lx, ys[0], yrs, t["faint"], size=11, ls=2, anchor=anchor)
-        b += f'<text x="{lx}" y="{ys[1]}" font-family="{SERIF}" font-size="20" fill="{t["ink"]}" text-anchor="{anchor}">{title}</text>'
-        b += f'<text x="{lx}" y="{ys[2]}" font-family="{SANS}" font-size="14" fill="{t["mute"]}" text-anchor="{anchor}">{place}</text>'
-        b += "</g>"
-    return svg(400, b, t, "Path: education and positions")
+    # faint year grid
+    for yr in range(2015, END + 1):
+        x = X(yr)
+        b += f'<line x1="{x}" y1="{top - 40}" x2="{x}" y2="{axis}" stroke="{t["rule"]}" stroke-width="1" opacity=".45"/>'
+        if yr < END:
+            b += mono(x + 4, axis + 22, str(yr), t["faint"], size=10, ls=1.2)
+    b += f'<line class="d" x1="64" y1="{axis}" x2="1216" y2="{axis}" stroke="{t["faint"]}" stroke-width="1"/>'
+    b += mono(64, top - 46, "STUDY", t["faint"], size=10, ls=2.5)
+    b += mono(64, wy0 - 46, "WORK", t["faint"], size=10, ls=2.5)
+    items = [(s, e, ti, pl, UTCI[k], top + row * pitch, "study") for s, e, ti, pl, k, row in STUDY] + \
+            [(s, e, ti, pl, UTCI[k], wy0 + i * pitch, "work") for i, (s, e, ti, pl, k) in enumerate(WORK)]
+    for s, e, ti, pl, col, y, kind in sorted(items, key=lambda r: r[0]):
+        delay = 0.3 + (s - 2015) * 0.22
+        h = 8 if ti == "Founder" else 6
+        b += bar(X(s), X(e), y, col, delay, h)
+        b += bar_label(X(s), X(e), y, ti, pl, t, delay)
+    # live marker for today
+    nx = X(NOW)
+    b += f'<g class="pulse"><line x1="{nx}" y1="{top - 40}" x2="{nx}" y2="{axis}" stroke="{UTCI[8]}" stroke-width="1.5" stroke-dasharray="3 4"/>' \
+         f'<circle cx="{nx}" cy="{axis}" r="5" fill="{UTCI[8]}"/></g>'
+    b += mono(nx, top - 46, "NOW", UTCI[8], size=10, ls=2.5, anchor="middle")
+    return svg(axis + 48, b, t, "Path. Study: B.Plan SPA Bhopal 2015 to 2019; PG Diploma ITC Twente and IIRS-ISRO 2019 to 2020; "
+               "Copernicus Master in Digital Earth 2021 to 2023; PhD The Cyprus Institute 2023 to now. Work: internships 2016 to 2018; "
+               "Neo Architects 2019; IIRS-ISRO 2020 to 2021; Srei Infrastructure Finance 2021; founder of CityAI 2021 to now; "
+               "Spatial Services Salzburg 2022; secondments Perugia and Pisa 2025.")
 
 
 # ---------- numbers ----------
