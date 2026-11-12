@@ -1,16 +1,16 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/header-dark.svg?v=202611121511">
-  <img alt="Ravi Kumar Pandey. Urbanist, scientist and founder of CityAI." src="./assets/header-light.svg?v=202611121511" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/header-dark.svg?v=202611122337">
+  <img alt="Ravi Kumar Pandey. Urbanist, scientist and founder of CityAI." src="./assets/header-light.svg?v=202611122337" width="100%">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/numbers-dark.svg?v=202611121511">
-  <img alt="In numbers: 10 m UTCI heat maps, 100 m air quality maps, 46 years of hourly data, 3 European cities, 7 languages spoken." src="./assets/numbers-light.svg?v=202611121511" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/numbers-dark.svg?v=202611122337">
+  <img alt="In numbers: 10 m UTCI heat maps, 100 m air quality maps, 46 years of hourly data, 3 European cities, 7 languages spoken." src="./assets/numbers-light.svg?v=202611122337" width="100%">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/expertise-dark.svg?v=202611121511">
-  <img alt="Expertise: urban heat and thermal comfort; Earth observation and downscaling; climate data analysis; field sensing and perception." src="./assets/expertise-light.svg?v=202611121511" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/expertise-dark.svg?v=202611122337">
+  <img alt="Expertise: urban heat and thermal comfort; Earth observation and downscaling; climate data analysis; field sensing and perception." src="./assets/expertise-light.svg?v=202611122337" width="100%">
 </picture>
 
 <details>
@@ -57,8 +57,8 @@ The studio I founded for city data tools and GIS training: open boundary dataset
 
 <!-- LATEST:START -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/latest-dark.svg?v=202611121511">
-  <img alt="Latest repositories" src="./assets/latest-light.svg?v=202611121511" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/latest-dark.svg?v=202611122337">
+  <img alt="Latest repositories" src="./assets/latest-light.svg?v=202611122337" width="100%">
 </picture>
 
 <p align="center"><sub><a href="https://github.com/exploringravi/Cyprus-Weather-Data">Cyprus Weather Data</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/Statistical-downscaling-of-UTCI">Statistical downscaling of UTCI</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/India_admin_boundaries">India admin boundaries</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/threshold-proximity-utci">threshold proximity utci</a> &nbsp;·&nbsp; <a href="https://github.com/exploringravi/letshike">letshike</a></sub></p>
@@ -67,8 +67,8 @@ The studio I founded for city data tools and GIS training: open boundary dataset
 <br>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/path-dark.svg?v=202611121511">
-  <img alt="Path: Bachelor's degree, School of Planning and Architecture, Bhopal, 2015 to 2019. PG Diploma in Geoinformatics, ITC Twente with IIRS-ISRO, 2019 to 2020. Copernicus Master in Digital Earth, Salzburg and Olomouc, 2021 to 2023. MSCA Doctoral Candidate, The Cyprus Institute, 2023 to now. Visiting Scientist, University of Perugia, 2025." src="./assets/path-light.svg?v=202611121511" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/path-dark.svg?v=202611122337">
+  <img alt="Path: Bachelor's degree, School of Planning and Architecture, Bhopal, 2015 to 2019. PG Diploma in Geoinformatics, ITC Twente with IIRS-ISRO, 2019 to 2020. Copernicus Master in Digital Earth, Salzburg and Olomouc, 2021 to 2023. MSCA Doctoral Candidate, The Cyprus Institute, 2023 to now. Visiting Scientist, University of Perugia, 2025." src="./assets/path-light.svg?v=202611122337" width="100%">
 </picture>
 
 <br>
